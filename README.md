@@ -1,3 +1,4 @@
 # Test
 
-Sample folder to test github actions and webhooks 
+Sample folder to test github actions and webhooks.
+
