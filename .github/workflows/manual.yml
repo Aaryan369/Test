@@ -7,12 +7,12 @@ name: getting data test
 on: push
 
 jobs:
-  printJob:    
-    name: Print event
+  deployment:
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: |
-        echo "$GITHUB_CONTEXT"
+    - name: Deploy Stage
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: 'https://03b1-54-91-189-235.ngrok.io/hook/'
+        method: 'POST'
+        data: ${{ toJson(github) }}
