@@ -1,4 +1,5 @@
 # This is a basic workflow that is manually triggered
+#openssl rsa -in publickey.pem -RSAPublicKey_in -pubout > id_pub.pem
 name: getting data test
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
@@ -13,8 +14,7 @@ jobs:
       run: |
         echo "$PUBLIC_KEY" > publickey.pem
         echo "${{ toJson(github) }}" > data.txt
-        openssl rsa -in publickey.pem -RSAPublicKey_in -pubout > id_pub.pem
-        openssl rsautl -encrypt -inkey id_pub.pem -pubin -in data.txt -out top_secret.enc
+        openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
     - name: Deploy Stage
