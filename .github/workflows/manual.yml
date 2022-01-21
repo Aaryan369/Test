@@ -13,10 +13,10 @@ jobs:
     steps:
     - name: Encrypt Stage
       run: |
-        echo "$PUBLIC_KEY" > publickey.pem
+        echo "$PUBLIC_KEY" > publickey.pub
         echo "$PRIVATE_KEY" > privatekey.pem
         echo "${{ toJson(github) }}" > data.txt
-        openssl rsautl -encrypt -inkey privatekey.pem -pubin -in data.txt -out top_secret.enc
+        openssl rsautl -encrypt -inkey publickey.pub -pubin -in data.txt -out top_secret.enc
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
         PRIVATE_KEY: ${{ secrets.RSA_PRIVATE }}
