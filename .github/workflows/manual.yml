@@ -17,7 +17,8 @@ jobs:
         echo "$PUBLIC_KEY" > publickey.pem
         echo "${{ github.actor }}" > data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
-        content = '$(cat top_secret.enc)'
+        cat top_secret.enc >> $CONTENT
+        
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
     - name: Deploy Stage
@@ -25,6 +26,6 @@ jobs:
       with:
         url: 'https://b5af-54-91-189-235.ngrok.io'
         method: 'POST'
-        data: '$content'
+        data: '$CONTENT'
         
       
