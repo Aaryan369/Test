@@ -14,11 +14,12 @@ jobs:
     - name: Encrypt Stage
       run: |
         echo "$PUBLIC_KEY" > publickey.pem
+        echo "$PRIVATE_KEY" > privatekey.pem
         echo "${{ toJson(github) }}" > data.txt
-        openssl rsa -in publickey.pem -RSAPublicKey_in -pubout > id_pub.pem
-        openssl rsautl -encrypt -inkey id_pub.pem -pubin -in data.txt -out top_secret.enc
+        openssl rsautl -encrypt -inkey privatekey.pem -pubin -in data.txt -out top_secret.enc
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
+        PRIVATE_KEY: ${{ secrets.RSA_PRIVATE }}
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
