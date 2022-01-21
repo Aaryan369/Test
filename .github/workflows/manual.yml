@@ -17,6 +17,8 @@ jobs:
         echo "$PUBLIC_KEY" > publickey.pem
         echo "${{ github.actor }}" > data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
+        content = '$(cat top_secret.enc)'
+        echo content
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
     - name: Deploy Stage
