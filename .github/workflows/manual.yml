@@ -22,7 +22,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://79d3-54-91-189-235.ngrok.io'
+        url: 'https://79d3-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         data: '{ "key": "value" }'       
       
