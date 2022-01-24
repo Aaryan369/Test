@@ -22,7 +22,7 @@ jobs:
         
     - name: Create Test File
       run: |
-        echo "test" > testfile.txt
+        echo "testing 12345" > testfile.txt
     
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
