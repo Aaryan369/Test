@@ -22,7 +22,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://79d3-54-91-189-235.ngrok.io/byte/'
+        url: 'https://79d3-54-91-189-235.ngrok.io/create_file/'
         method: 'POST'
         data: '{ "key": "${{ github.workspace }}" }'
         files: '{ "file": "${{ github.workspace }}/top_secret.txt" }'
