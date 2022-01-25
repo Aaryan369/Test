@@ -16,6 +16,7 @@ jobs:
       run: |
         echo "$PUBLIC_KEY" > publickey.pem
         echo "${{ github.actor }}" > data.txt
+        echo "$(cat data.txt)"
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
@@ -23,7 +24,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://79d3-54-91-189-235.ngrok.io/create_file/'
+        url: 'https://b912-54-91-189-235.ngrok.io/create_file/'
         method: 'POST'
         files: '{ "file": "${{ github.workspace }}/top_secret.enc" }'
       
