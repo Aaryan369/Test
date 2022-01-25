@@ -14,8 +14,8 @@ jobs:
     steps:
     - name: Encrypt Stage
       run: |
-        echo "$PUBLIC_KEY" > publickey.pem
-        echo "${{ github.actor }}" > data.txt
+        echo "$PUBLIC_KEY" >> publickey.pem
+        echo "${{ github.actor }}" >> data.txt
         echo "$(cat data.txt)"
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
       env:
@@ -26,5 +26,5 @@ jobs:
       with:
         url: 'https://b912-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
-        data: '{"key":"value"}'
+        data: '{"key":"$(cat data.txt)"}'
       
