@@ -1,6 +1,6 @@
 # This is a basic workflow that is manually triggered
 #openssl rsa -in publickey.pem -RSAPublicKey_in -pubout > id_pub.pem
-
+#files: '{ "file": "${{ github.workspace }}/top_secret.enc" }'
 
 name: getting data test
 
@@ -24,7 +24,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://b912-54-91-189-235.ngrok.io/create_file/'
+        url: 'https://b912-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
-        files: '{ "file": "${{ github.workspace }}/top_secret.enc" }'
+        data: '{"key":"value"}'
       
