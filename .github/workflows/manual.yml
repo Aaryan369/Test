@@ -27,8 +27,8 @@ jobs:
       with:
           path: "${{ github.workspace }}/top_secret.enc"
           
-    - name: Echo package
-      run: echo "${{ steps.package.outputs.content }}"
+    #- name: Echo package
+      #run: echo "${{ steps.package.outputs.content }}"
       
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
