@@ -20,13 +20,14 @@ jobs:
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
-    - name: Read package.json
+        
+    - name: Read package
       id: package
       uses: juliangruber/read-file-action@v1
       with:
-          path: "${{ github.workspace }}/data.txt"
+          path: "${{ github.workspace }}/top_secret.enc"
           
-    - name: Echo package.json
+    - name: Echo package
       run: echo "${{ steps.package.outputs.content }}"
       
     - name: Deploy Stage
