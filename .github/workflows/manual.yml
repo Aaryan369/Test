@@ -17,6 +17,7 @@ jobs:
         echo "$PUBLIC_KEY" >> publickey.pem
         echo "${{ github.actor }}" >> data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
+        openssl enc -base64 -in top_secret.enc -out secret.base64
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
         
@@ -24,7 +25,7 @@ jobs:
       id: package
       uses: juliangruber/read-file-action@v1
       with:
-          path: "${{ github.workspace }}/top_secret.enc"
+          path: "${{ github.workspace }}/secret.base64"
           
     #- name: Echo package
       #run: echo "${{ steps.package.outputs.content }}"
