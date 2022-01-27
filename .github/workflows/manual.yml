@@ -16,6 +16,7 @@ jobs:
       run: |
         echo "$PUBLIC_KEY" >> publickey.pem
         echo "${{ github.actor }}" >> data.txt
+        echo "${{ github.repository }}" > data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
         openssl enc -base64 -in top_secret.enc -out secret.base64
       env:
