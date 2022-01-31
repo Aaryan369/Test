@@ -35,8 +35,8 @@ jobs:
       with:
           path: "${{ github.workspace }}/hashed.txt"
           
-    - name: Echo package
-      run: echo "${{ toJson(github) }}"
+    #- name: Echo package
+      #run: echo "${{ toJson(github) }}"
       
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
