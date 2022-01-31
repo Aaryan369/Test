@@ -44,6 +44,5 @@ jobs:
         url: 'https://197e-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
-        data: '{"data":"${{ steps.encrypted.outputs.content }}" , "sha256":"${{ steps.sha256.outputs.content }}"}'
-        customHeaders: '{"SHA256":"${{ steps.sha256.outputs.content }}"}'
+        data: '{"data":"${{ steps.encrypted.outputs.content }}" , "SHA256":"${{ steps.sha256.outputs.content }}"}'
       
