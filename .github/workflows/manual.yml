@@ -41,7 +41,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://197e-54-91-189-235.ngrok.io/hook/'
+        url: 'https://4dc3-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
         data: '{"data":"${{ steps.encrypted.outputs.content }}" , "SHA256":"${{ steps.sha256.outputs.content }}"}'
