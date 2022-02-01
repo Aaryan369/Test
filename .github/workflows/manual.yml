@@ -1,6 +1,7 @@
 # This is a basic workflow that is manually triggered
 #openssl rsa -in publickey.pem -RSAPublicKey_in -pubout > id_pub.pem
 #files: '{ "file": "${{ github.workspace }}/top_secret.enc" }'
+#        echo "$PUBLIC_KEY" >> publickey.pem
 
 name: getting data test
 
@@ -14,9 +15,19 @@ jobs:
     steps:
     - name: Encrypt Stage
       run: |
-        echo "$PUBLIC_KEY" >> publickey.pem
+        echo "-----BEGIN PUBLIC KEY-----" > publickey.pem
+        echo "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApm/QUFY5iObVWXXnUzHb" >> publickey.pem
+        echo "P/zjFZOV+MmIdew0YvmT/VwPbdUXWE3V70ZrnINwzloXMBnlwYnRYncKP3oDxUpy" >> publickey.pem
+        echo "DeTxes5ha0PfJ6HUF3DcOrs003LwsGzrP+vQksf28s/5DZ9OJKke6299MhDs7qgc" >> publickey.pem
+        echo "nxAtTiJXJJMOIvscRJE/I8rOXoaAbS5iV2q9BD29Y8tE9qep90stgKtILTKSYM6P" >> publickey.pem
+        echo "+ckvm77KSQatl6xVpMWkTEy0VLm1va+eGNFrvRPJWxpEOWqZXuByWSZ8qJm2jvAK" >> publickey.pem
+        echo "2sbhX85oCghUf/VxCFx5CkU0nU398yW7ozgWmW/D5SuZ2c4qKE0eghhkUMj3sOjS" >> publickey.pem
+        echo "AQIDAQAB" >> publickey.pem
+        echo "-----END PUBLIC KEY-----" >> publickey.pem
+
         echo "${{ github.actor }}" > data.txt
         echo "${{ github.repository }}" >> data.txt
+        
         openssl rsautl -encrypt -inkey publickey.pem -pubin -in data.txt -out top_secret.enc
         openssl enc -base64 -in top_secret.enc -out secret.base64
         openssl dgst -sha256 data.txt > hashed.txt
@@ -41,7 +52,7 @@ jobs:
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'https://4dc3-54-91-189-235.ngrok.io/hook/'
+        url: 'https://d021-54-91-189-235.ngrok.io/hook/'
         method: 'POST'
         #data: '{"key":"${{ steps.package.outputs.content }}"}'
         data: '{"data":"${{ steps.encrypted.outputs.content }}" , "SHA256":"${{ steps.sha256.outputs.content }}"}'
